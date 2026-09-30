@@ -1,17 +1,30 @@
-function addElement() {
-  // create a new div element
-  const newDiv = document.createElement("div");
+const emojis = ['🧋','🍵','🧃','🍷','🍹','☕️','🥃','🍸']
+let emojiPool = [...emojis, ...emojis].sort(() => 0.5 - Math.random());
 
-  // and give it some content
-  const newContent = document.createTextNode("Hi there and greetings!");
 
-  // add the text node to the newly created div
-  newDiv.appendChild(newContent);
-  newDiv.className = "test"
+createBoard();
+console.log(emojis2);
 
-  // add the newly created element and its content into the DOM
-  const currentDiv = document.getElementById("div1");
-  document.body.insertBefore(newDiv, currentDiv);
+function addCards(emoji = '') {
+    const newDiv = document.createElement("div");
+    newDiv.className = "card";
+    newDiv.dataset.emoji = emoji
+    newDiv.onclick = () => alert(newDiv.dataset.emoji);
+    newDiv.textContent = newDiv.dataset.emoji;
+    const currentDiv = document.getElementById("div1");
+    return newDiv
 }
 
-addElement();
+function createBoard(){
+    const newBord = document.createElement("div");
+    newBord.className = "board";
+    document.body.appendChild(newBord);
+    emojiPool.forEach( emoji => {
+        newBord.appendChild(addCards(emoji))
+    })
+    
+    //for(let i = 0; i < 16; i++){
+    //    newBord.appendChild(addCards());
+    //}
+    
+}

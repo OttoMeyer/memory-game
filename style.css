@@ -15,3 +15,25 @@
     body{
         background-color: var(--bg);
     }
+
+    .board{
+        border: #213448;
+        border-style: solid;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 5%;
+    }
+
+    .card{
+        width: 100%;
+        aspect-ratio: 1/1;
+        background: var(--primary);
+        border: #213448;
+        border-style: solid;
+        border-radius: 25%;
+        font-size: 75%;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
