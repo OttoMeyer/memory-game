@@ -1,6 +1,7 @@
 :root {
       --primary: #547792;
       --secondary: #94B4C1;
+      --correct: #8BBB92;
       --accent: #213448;
       --bg: #ECEFCA;
       --font: 'Fredoka', sans-serif;
@@ -22,12 +23,13 @@
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         padding: 5%;
+        
     }
 
     .card{
         width: 100%;
         aspect-ratio: 1/1;
-        background: var(--primary);
+        background-color: var(--primary);
         border: #213448;
         border-style: solid;
         border-radius: 25%;
@@ -36,4 +38,15 @@
         text-align: center;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
+        font-size: 32px;
+        transition: background-color 0.5s, transform 0.5s;
+    }
+
+    .card.open{
+        background: var(--secondary);
+    }
+
+    .card.correct{
+        background: var(--correct);
     }
