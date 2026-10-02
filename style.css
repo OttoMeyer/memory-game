@@ -17,13 +17,28 @@
         background-color: var(--bg);
     }
 
+    .textBox{
+        border: #213448;
+        border-style: solid;
+        display: flex;
+        justify-content: center;
+        padding: 5%;
+        flex-grow: 1;
+    }
+
+    .gameInfo{
+        border: #213448;
+        border-style: solid;
+        display: flex;
+        padding: 5%;
+    }
+
     .board{
         border: #213448;
         border-style: solid;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         padding: 5%;
-        
     }
 
     .card{
