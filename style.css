@@ -10,7 +10,6 @@
     * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       font-size: 32px;
       font-family: var(--font);
     }
@@ -20,12 +19,21 @@
     }
 
     button{
-        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 50px;
+        padding: 32px;
         border: var(--accent);
         background-color: var(--primary);
         border-style: solid;
         border-radius: 25px;
+        margin: 5px;
+        
+    }
+
+    .headerButton{
+        margin-right: auto;
     }
 
     .prettyBox{
@@ -62,27 +70,30 @@
     .textBox{
         display: flex;
         justify-content: center;
-        padding: 1%;
-        flex-grow: 1;
+        
+        padding: 2%;
+        
     }
 
     .gameInfo{
         background-color: var(--primary);
         border: var(--accent);
         border-radius: 25px;
+        align-items:center;
         border-style: solid;
         display: flex;
-        margin: 2%;
+        margin: 1%;
     }
 
     .board{
         background: var(--accent);
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        padding: 1%;
+        padding: 0 25%;
     }
 
     .card{
+        box-sizing: border-box;
         width: 100%;
         aspect-ratio: 1/1;
         border-radius: 25px;

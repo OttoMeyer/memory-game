@@ -2,7 +2,7 @@ const emojis = ['🧋','🍵','🧃','🍷','🍹','☕️','🥃','🍸']
 let emojiPool = [];
 //let emojiPool = [...emojis, ...emojis].sort(() => 0.5 - Math.random());
 let turnCount = 0;
-let progressCount = 7;
+let progressCount = 0;
 const maxProgress = emojis.length
 let firstCard;
 
@@ -23,10 +23,16 @@ function createDiv(className = "", idName = ""){
 }
 
 function createGameInfo(){
-    const newGameInfo = createDiv("gameInfo");
+    const newGameInfo = document.createElement("header");
+    newGameInfo.classList.add("gameInfo");
     document.body.appendChild(newGameInfo);
     setupTurnDisplay();
     setupProgressDisplay();
+    
+    const newResartButton = addRestartButton();
+    newResartButton.classList.add("headerButton");
+    newGameInfo.appendChild(newResartButton);
+
     newGameInfo.appendChild(turnDisplay);
     newGameInfo.appendChild(progressDisplay);
 }
@@ -64,7 +70,7 @@ function addCard(emoji = '') {
     newCard.classList.add("prettyBox")
     newCard.dataset.emoji = emoji;
     newCard.onclick = () => openCard(newCard);
-    newCard.textContent = emoji;
+    //newCard.textContent = emoji;
     return newCard;
 }
 
@@ -98,10 +104,14 @@ function createWinPopup() {
     newP.textContent = `Score: ${turnCount}`;
     newWinPopup.appendChild(newP);
 
+    newWinPopup.appendChild(addRestartButton());
+}
+
+function addRestartButton(){
     const newButton = document.createElement("button");
     newButton.textContent = `Restart`;
-    newWinPopup.appendChild(newButton);
-    newWinPopup.onclick = () => restartGame();
+    newButton.onclick = () => restartGame();
+    return newButton;
 }
 
 function createGrayBox(){
@@ -110,14 +120,14 @@ function createGrayBox(){
 }
 
 function closeCards(card1, card2){
-    turnCount++;
-    updateTurnDisplay();
     card1.classList.remove("open");
     card2.classList.remove("open");
     screenLock = false;
 }
 
 function onSuccess(card1, card2){
+    turnCount++;
+    updateTurnDisplay();
     progressCount++;
     updateProgressDisplay();
     card1.classList.add("correct");
@@ -127,6 +137,8 @@ function onSuccess(card1, card2){
 }
 
 function onFail(card1, card2){
+    turnCount++;
+    updateTurnDisplay();
     screenLock = true;
     setTimeout(() => {
         card1.textContent = "";
@@ -143,10 +155,11 @@ function onWin(){
 
 function restartGame(){
     screenLock = false;
+    firstCard = null;
     const grayBox = document.getElementById("grayBox");
-    grayBox.remove();
+    if (grayBox) grayBox.remove();
     const winPopup = document.getElementById("winPopup");
-    winPopup.remove();
+    if (winPopup) winPopup.remove();
     const board = document.getElementById("board");
     board.remove();
     turnCount = 0;
