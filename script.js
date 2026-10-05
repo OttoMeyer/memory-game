@@ -2,7 +2,7 @@ const emojis = ['🧋','🍵','🧃','🍷','🍹','☕️','🥃','🍸']
 let emojiPool = [];
 //let emojiPool = [...emojis, ...emojis].sort(() => 0.5 - Math.random());
 let turnCount = 0;
-let progressCount = 0;
+let progressCount = 7;
 const maxProgress = emojis.length
 let firstCard;
 
@@ -52,6 +52,7 @@ function updateProgressDisplay(){
 function createBoard(){
     emojiPool = [...emojis, ...emojis].sort(() => 0.5 - Math.random());
     const newBord = createDiv("board", "board");
+    newBord.classList.add("prettyBox")
     document.body.appendChild(newBord);
     emojiPool.forEach( emoji => {
         newBord.appendChild(addCard(emoji))
@@ -60,9 +61,10 @@ function createBoard(){
 
 function addCard(emoji = '') {
     const newCard = createDiv("card");
+    newCard.classList.add("prettyBox")
     newCard.dataset.emoji = emoji;
     newCard.onclick = () => openCard(newCard);
-    //newCard.textContent = emoji;
+    newCard.textContent = emoji;
     return newCard;
 }
 
@@ -88,12 +90,23 @@ function openCard(card){
 
 function createWinPopup() {
     const newWinPopup = createDiv("winBox", "winPopup");
-    newWinPopup.textContent = "You win";
+    newWinPopup.classList.add("prettyBox")
+    newWinPopup.textContent = `You win`;
     document.body.appendChild(newWinPopup);
+
+    const newP = document.createElement("p");
+    newP.textContent = `Score: ${turnCount}`;
+    newWinPopup.appendChild(newP);
+
     const newButton = document.createElement("button");
-    newButton.textContent = "Restart";
+    newButton.textContent = `Restart`;
     newWinPopup.appendChild(newButton);
     newWinPopup.onclick = () => restartGame();
+}
+
+function createGrayBox(){
+    const newGray = createDiv("grayBox", "grayBox");
+    document.body.appendChild(newGray);
 }
 
 function closeCards(card1, card2){
@@ -120,14 +133,18 @@ function onFail(card1, card2){
         card2.textContent = "";
         closeCards(card1, card2);
     }, 1000)
-
 }
 
 function onWin(){
+    screenLock = true;
+    createGrayBox();
     createWinPopup();
 }
 
 function restartGame(){
+    screenLock = false;
+    const grayBox = document.getElementById("grayBox");
+    grayBox.remove();
     const winPopup = document.getElementById("winPopup");
     winPopup.remove();
     const board = document.getElementById("board");
